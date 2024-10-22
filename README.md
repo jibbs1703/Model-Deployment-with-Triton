@@ -9,7 +9,7 @@ models from Scikit-Learn, XGBoost and LightGBM . Triton is designed to handle hi
 workloads with features like dynamic batching, concurrent model serving, and advanced monitoring. Triton also 
 provides HTTP and gRPC endpoints for communication, making it easy to integrate with various client applications.
 The Triton Inference Server can be deployed on a single server, in a Docker container, or in a Kubernetes cluster,
-offering flexibility in deployment environments.
+offering flexibility in deployment environments. A detailed article on the triton server can be found [here](https://developer.nvidia.com/blog/deploying-ai-deep-learning-models-with-triton-inference-server/).
 
 In this project, a pre-trained ML Model is served using NVIDIA's Triton Inference Server. The model served is the
 Question and Answer (QA) Model from Huggingface and is able to retrieve the answer to a question from a given text,
