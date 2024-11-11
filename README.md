@@ -36,10 +36,9 @@ Also, each model version has its own configuration and backend which must be spe
 Similar to the configuration, making changes to the model backend without updating the Triton server configuration 
 will cause the Triton Inference Server to fail since the model backend and server configurations do not match. The 
 backend used in this project is the ONNX backend and the model configuration files have been written to match the 
-input and output preferences of the ONNX backend. 
+input and output preferences of the ONNX backend.
 
 ![Model Repository Structure](images/model-repo-structure.jpg)
-
 
 ## Handling Data Pre-Inference and Post-Inference 
 
@@ -67,18 +66,30 @@ to run the server.
 If run properly, the server should make inference on 10 text samples and provide results in a dataframe saved to the
 results directory as a json file. 
 
+```commandline
 git clone https://github.com/jibbs1703/Model-Deployment-with-Triton.git
 cd  Model-Deployment-with-Triton/
+```
 
+```bash
 chmod +x docker/build_image.sh
 docker/build_image.sh
 
+```
+
+```bash
 chmod +x docker/run_container.sh
 docker/run_container.sh
 
+```
+
+```bash
 chmod +x run_and_tests/run_inference.sh
 run_and_tests/run_inference.sh
+```
 
+```bash
 chmod +x run_and_tests/run_tests.sh
 run_and_tests/run_tests.sh
+```
 

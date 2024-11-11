@@ -1,11 +1,11 @@
 #!/bin/sh
 
 # Declare Default Variables
-IMAGE_NAME="triton_demo"
+IMAGE_NAME="triton"
 IMAGE_VERSION="24.08"
 CONTAINER_NAME="triton_demo_container"
 
-# Run Docker Image in Interactive Mode and Expose Ports for Inference Server
+# Run Docker Image in Interactive Mode and Expose Ports
 docker run -i --rm \
   --name ${CONTAINER_NAME} \
   -p8000:8000 \

@@ -15,19 +15,17 @@ trace_model(model_path="/deploy/model")
 # get and process data
 data = load_data("/deploy/dataset/squadv2.json")
 df = flatten_data(data)
-
-# Use Model on 20 Observations from Data
-df_sample = df.sample(n=20, random_state=2024)
+df_sample = df.sample(n=10, random_state=2024)
 
 # load tokenizer
 tokenizer = AutoTokenizer.from_pretrained(
     "/deploy/model", clean_up_tokenization_spaces=True
 )
 
-# Start Triton Server
+# start triton
 os.system("./triton/commands/start.sh &> server.out && sleep 10")
 
-# Send Requests to Server
+# Send Requests
 URL = "http://localhost:8000/v2/models/tinyroberta/infer"
 
 tracking = {

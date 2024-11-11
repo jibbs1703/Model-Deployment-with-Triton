@@ -26,7 +26,7 @@ def flatten_data(data: List[dict]) -> pd.DataFrame:
         answer: object
         answer_start: int64
         is_impossible: bool
-
+    
     Note: all is_impossible values should be False!
 
     Example Output
@@ -69,5 +69,6 @@ def flatten_data(data: List[dict]) -> pd.DataFrame:
     df['answer'] = df['answer'].astype('object')
     df['answer_start'] = df['answer_start'].astype('int64')
     df['is_impossible'] = df['is_impossible'].astype('bool')
+
 
     return df
