@@ -5,6 +5,7 @@ from src.etl import load_data, flatten_data
 data = load_data("/deploy/dataset/squadv2.json")
 df = flatten_data(data)
 
+
 # Test for flatten_data function
 def test_flatten_data_columns():
     """

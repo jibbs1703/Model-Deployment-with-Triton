@@ -64,7 +64,8 @@ provides the sample data for testing the inference server. It also downloads all
 to run the server.
 
 If run properly, the server should make inference on 10 text samples and provide results in a dataframe saved to the
-results directory as a json file. 
+results directory as a json file. Another option is to persist the results folder between the host machine and the
+docker container, allowing the model results to show up in the results folder of the local machine.
 
 ```commandline
 git clone https://github.com/jibbs1703/Model-Deployment-with-Triton.git
@@ -84,12 +85,12 @@ docker/run_container.sh
 ```
 
 ```bash
-chmod +x run_and_tests/run_inference.sh
-run_and_tests/run_inference.sh
+chmod +x exec_scripts/run_inference.sh
+exec_scripts/run_inference.sh
 ```
 
 ```bash
-chmod +x run_and_tests/run_tests.sh
-run_and_tests/run_tests.sh
+chmod +x exec_scripts/run_tests.sh
+exec_scripts/run_tests.sh
 ```
 
