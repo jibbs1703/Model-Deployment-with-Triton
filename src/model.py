@@ -1,4 +1,3 @@
-import os
 import torch
 from transformers import AutoModelForQuestionAnswering, AutoTokenizer
 
@@ -7,18 +6,14 @@ def trace_model(model_path: str) -> None:
     """Compile and save PyTorch model in .onnx Format"""
 
     # Load the Tokenizer
-    tokenizer = AutoTokenizer.from_pretrained(
-        model_path, clean_up_tokenization_spaces=True
-    )
+    tokenizer = AutoTokenizer.from_pretrained(model_path, clean_up_tokenization_spaces=True)
     # Tokenize the Example Input
     question = "Who jumped over the dog?"
     context = "The quick brown fox jumps over the lazy dog"
     example_input = tokenizer(question, context, return_tensors="pt")
 
     #  Load the Pre-Trained QA model
-    qa_model = AutoModelForQuestionAnswering.from_pretrained(
-        model_path, return_dict=False
-    )
+    qa_model = AutoModelForQuestionAnswering.from_pretrained(model_path, return_dict=False)
 
     # Set Model to evaluation mode
     qa_model.eval()
@@ -38,6 +33,7 @@ def trace_model(model_path: str) -> None:
             "input_ids": {0: "batch_size", 1: "seq_len"},
             "attention_mask": {0: "batch_size", 1: "seq_len"},
             "start_idx_logits": {0: "batch_size", 1: "seq_len"},
-            "end_idx_logits": {0: "batch_size", 1: "seq_len"}
+            "end_idx_logits": {0: "batch_size", 1: "seq_len"},
         },
-        opset_version=11)
+        opset_version=11,
+    )

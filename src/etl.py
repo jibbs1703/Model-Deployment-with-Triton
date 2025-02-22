@@ -1,16 +1,16 @@
 import json
-from typing import List
+
 import pandas as pd
 
 
-def load_data(path: str) -> List[dict]:
+def load_data(path: str) -> list[dict]:
     """Load data from squadv2.json"""
     with open(path) as f:
         data = json.load(f)["data"]
     return data
 
 
-def flatten_data(data: List[dict]) -> pd.DataFrame:
+def flatten_data(data: list[dict]) -> pd.DataFrame:
     """Flatten nested json data and convert to dataframe.
 
     Input
@@ -26,7 +26,7 @@ def flatten_data(data: List[dict]) -> pd.DataFrame:
         answer: object
         answer_start: int64
         is_impossible: bool
-    
+
     Note: all is_impossible values should be False!
 
     Example Output
@@ -46,29 +46,35 @@ def flatten_data(data: List[dict]) -> pd.DataFrame:
 
     df = pd.json_normalize(
         data,
-        record_path=['paragraphs', 'qas', 'answers'],  # Expands 'answers'
+        record_path=["paragraphs", "qas", "answers"],  # Expands 'answers'
         meta=[
-            ['title'],  # Article title
-            ['paragraphs', 'context'],  # Context of the paragraph
-            ['paragraphs', 'qas', 'question'],  # Question text
-            ['paragraphs', 'qas', 'is_impossible']  # Is the question unanswerable?
-        ]
+            ["title"],  # Article title
+            ["paragraphs", "context"],  # Context of the paragraph
+            ["paragraphs", "qas", "question"],  # Question text
+            ["paragraphs", "qas", "is_impossible"],  # Is the question unanswerable?
+        ],
     )
 
     # Rename columns to Match Documentation Docstring
-    df.rename(columns={'text': 'answer', 'paragraphs.context': 'context', 'paragraphs.qas.question': 'question',
-                       'paragraphs.qas.is_impossible': 'is_impossible'}, inplace=True)
+    df.rename(
+        columns={
+            "text": "answer",
+            "paragraphs.context": "context",
+            "paragraphs.qas.question": "question",
+            "paragraphs.qas.is_impossible": "is_impossible",
+        },
+        inplace=True,
+    )
 
     # Select Required Columns into DataFrame
-    df = df[['title', 'context', 'question', 'answer', 'answer_start', 'is_impossible']]
+    df = df[["title", "context", "question", "answer", "answer_start", "is_impossible"]]
 
     # Specify Correct Datatypes in Dataframe Columns
-    df['title'] = df['title'].astype('object')
-    df['context'] = df['context'].astype('object')
-    df['question'] = df['question'].astype('object')
-    df['answer'] = df['answer'].astype('object')
-    df['answer_start'] = df['answer_start'].astype('int64')
-    df['is_impossible'] = df['is_impossible'].astype('bool')
-
+    df["title"] = df["title"].astype("object")
+    df["context"] = df["context"].astype("object")
+    df["question"] = df["question"].astype("object")
+    df["answer"] = df["answer"].astype("object")
+    df["answer_start"] = df["answer_start"].astype("int64")
+    df["is_impossible"] = df["is_impossible"].astype("bool")
 
     return df

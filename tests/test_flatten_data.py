@@ -1,12 +1,13 @@
 import pytest
-from src.etl import load_data, flatten_data
+
+from src.etl import flatten_data, load_data
 
 # Get and process data
 data = load_data("/deploy/dataset/squadv2.json")
+# data = load_data("C:/Users/ameen/Downloads/squadv2.json")
 df = flatten_data(data)
 
 
-# Test for flatten_data function
 def test_flatten_data_columns():
     """
     Test to verify if the flattened DataFrame contains the expected columns.
@@ -15,10 +16,12 @@ def test_flatten_data_columns():
     names ['title', 'context', 'question', 'answer', 'answer_start', 'is_impossible'].
     """
     # Expected columns
-    expected_columns = ['title', 'context', 'question', 'answer', 'answer_start', 'is_impossible']
+    expected_columns = ["title", "context", "question", "answer", "answer_start", "is_impossible"]
 
     # Check if the DataFrame has the Specified columns
-    assert list(df.columns) == expected_columns, "DataFrame does not have the specified columns"
+    if list(df.columns) != expected_columns:
+        raise AssertionError("DataFrame does not have the specified columns")
+
 
 def test_flatten_data_columns_count():
     """
@@ -29,7 +32,9 @@ def test_flatten_data_columns_count():
     """
 
     # Check the DataFrame Column Count
-    assert df.shape[1] == 6, "DataFrame does not have the correct number of columns"
+    if df.shape[1] != 6:
+        raise AssertionError("DataFrame does not have the correct number of columns")
+
 
 def test_flatten_data_false_is_impossible():
     """
@@ -40,7 +45,9 @@ def test_flatten_data_false_is_impossible():
     """
 
     # Check if all 'is_impossible' values are Actually False
-    assert df['is_impossible'].unique() == False, "Not all 'is_impossible' values are False"
+    if not (df["is_impossible"].unique() == False).all():  # noqa: E712
+        raise AssertionError("Not all 'is_impossible' values are False")
+
 
 def test_flatten_data_datatype():
     """
@@ -52,12 +59,18 @@ def test_flatten_data_datatype():
     - 'is_impossible' is of type 'bool'.
     """
     # Check the data types of each Dataframe Column
-    assert df['title'].dtype == 'object', "Title column is not of type 'object'"
-    assert df['context'].dtype == 'object', "Context column is not of type 'object'"
-    assert df['question'].dtype == 'object', "Question column is not of type 'object'"
-    assert df['answer'].dtype == 'object', "Answer column is not of type 'object'"
-    assert df['answer_start'].dtype == 'int64', "Answer start column is not of type 'int64'"
-    assert df['is_impossible'].dtype == 'bool', "Is_impossible column is not of type 'bool'"
+    if df["title"].dtype != "object":
+        raise AssertionError("Title column is not of type 'object'")
+    if df["context"].dtype != "object":
+        raise AssertionError("Context column is not of type 'object'")
+    if df["question"].dtype != "object":
+        raise AssertionError("Question column is not of type 'object'")
+    if df["answer"].dtype != "object":
+        raise AssertionError("Answer column is not of type 'object'")
+    if df["answer_start"].dtype != "int64":
+        raise AssertionError("Answer start column is not of type 'int64'")
+    if df["is_impossible"].dtype != "bool":
+        raise AssertionError("Is_impossible column is not of type 'bool'")
 
 
 if __name__ == "__main__":
