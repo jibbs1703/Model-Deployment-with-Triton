@@ -1,4 +1,11 @@
-## Model Serving in Triton via the PyTorch Backend
+# Model Serving in Triton via the PyTorch Backend
+
+In this project, a pre-trained ML Model is served using NVIDIA's Triton Inference Server. The model served is the
+Question and Answer (QA) Model from Huggingface and is able to retrieve the answer to a question from a given text,
+proving useful in searching for answers in a document or file. The project is served within a docker container
+allowing for the setup to be hosted on any server/computer.
+
+The setup can be deployed as a solution in a variety of industries such as the legal and healthcare industries.
 
 ## Handling Data Pre-Inference and Post-Inference
 

@@ -15,13 +15,6 @@ provides HTTP and gRPC endpoints for communication, making it easy to integrate 
 The Triton Inference Server can be deployed on a single server, in a Docker container, or in a Kubernetes cluster,
 offering flexibility in deployment environments. A detailed article on the triton server can be found [here](https://developer.nvidia.com/blog/deploying-ai-deep-learning-models-with-triton-inference-server/).
 
-In this project, a pre-trained ML Model is served using NVIDIA's Triton Inference Server. The model served is the
-Question and Answer (QA) Model from Huggingface and is able to retrieve the answer to a question from a given text,
-proving useful in searching for answers in a document or file. The project is served within a docker container
-allowing for the setup to be hosted on any server/computer.
-
-The setup can be deployed as a solution in a variety of industries such as the legal and healthcare industries.
-
 ## Serving Models with the Triton Inference Server
 
 In production, the models to be served should have been trained and tested by Data Scientists and deemed to be ready
