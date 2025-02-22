@@ -1,9 +1,14 @@
 #!/bin/sh
 
+# Docker command goes here (tag=triton:24.08)
+
 # Declare Default Variables
 IMAGE_NAME="triton"
 IMAGE_VERSION="24.08"
-DOCKERFILE_PATH="docker/triton.Dockerfile"
+DOCKERFILE_PATH="docker/project.Dockerfile"
+
+# Move to Right Directory for Image Build
+#cd ..
 
 # Build Image Using Default Variables
 docker build -f ${DOCKERFILE_PATH} -t ${IMAGE_NAME}:${IMAGE_VERSION} .

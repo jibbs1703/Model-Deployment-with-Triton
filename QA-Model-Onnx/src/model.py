@@ -35,5 +35,5 @@ def trace_model(model_path: str) -> None:
             "start_idx_logits": {0: "batch_size", 1: "seq_len"},
             "end_idx_logits": {0: "batch_size", 1: "seq_len"},
         },
-        opset_version=11,
+        opset_version=14,
     )

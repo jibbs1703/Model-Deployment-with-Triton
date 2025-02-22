@@ -1,4 +1,8 @@
 # Serving AI/ML Models Using the Triton Inference Server
+![Python Version](https://img.shields.io/badge/python-3.12-blue)
+![pre-commit](https://img.shields.io/badge/pre--commit-enabled-yellow)
+![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)
+![license](https://img.shields.io/github/license/peaceiris/actions-gh-pages.svg)
 
 ## Overview
 
@@ -18,7 +22,7 @@ allowing for the setup to be hosted on any server/computer.
 
 The setup can be deployed as a solution in a variety of industries such as the legal and healthcare industries.
 
-## Using Models in the Triton Inference Server
+## Serving Models with the Triton Inference Server
 
 In production, the models to be served should have been trained and tested by Data Scientists and deemed to be ready
 for real-world deployments. The trained model is loaded into the server along with its configuration file which
@@ -35,61 +39,6 @@ In this project, the pretrained model is called "tinyroberta" and has just one v
 Also, each model version has its own configuration and backend which must be specified in its configuration file.
 Similar to the configuration, making changes to the model backend without updating the Triton server configuration
 will cause the Triton Inference Server to fail since the model backend and server configurations do not match. The
-backend used in this project is the ONNX backend and the model configuration files have been written to match the
-input and output preferences of the ONNX backend.
+model configuration files have to be written to match the input and output preferences of the chosen backend.
 
 ![Model Repository Structure](images/model-repo-structure.jpg)
-
-## Handling Data Pre-Inference and Post-Inference
-
-In production, data is sent to the model as a payload, already preprocessed and made fit for input into the model. Also,
-the inference results from the model must be post-processed to make the inference results available and readable to users
-who sent requests to the model.
-
-In this project, the preprocessing involves extracting inputs from a json file and putting these inputs in a payload
-to send to the model for inference. The modules [etl.py](src/etl.py) and [triton.py](src/triton.py) provide functions
-that help preprocess the input data from its raw form into a form that can be passed into the trained model.
-
-Also, after the model makes inference on the input data, the model inference results need to be processed once more.
-The results of the model inference is parsed, and the needed parts are extracted from the parsed inference and then
-saved in a format for the user to get back. The module [triton.py](src/triton.py) provides the function that parses
-the results of the model inference.
-
-
-## How to Run Project
-
-The project is run in a docker container, in a bid to avoid environment clashes that could occur. The Dockerfile
-pulls the official Triton Inference Server image from NVIDIA’s NGC, helps in loading the model into the server and
-provides the sample data for testing the inference server. It also downloads all dependencies and packages needed
-to run the server.
-
-If run properly, the server should make inference on 10 text samples and provide results in a dataframe saved to the
-results directory as a json file. Another option is to persist the results folder between the host machine and the
-docker container, allowing the model results to show up in the results folder of the local machine.
-
-```commandline
-git clone https://github.com/jibbs1703/Model-Deployment-with-Triton.git
-cd  Model-Deployment-with-Triton/
-```
-
-```bash
-chmod +x docker/build_image.sh
-docker/build_image.sh
-
-```
-
-```bash
-chmod +x docker/run_container.sh
-docker/run_container.sh
-
-```
-
-```bash
-chmod +x exec_scripts/run_inference.sh
-scripts/run_inference.sh
-```
-
-```bash
-chmod +x exec_scripts/run_tests.sh
-scripts/run_tests.sh
-```

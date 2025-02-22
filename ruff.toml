@@ -8,11 +8,16 @@ preview = true
 select = ["A", "E3", "E4", "E5", "E7", "E9", "F", "UP", "B", "S", "I", "N", "C90", "C4", "BLE"]
 #select = ["ALL"]
 ignore = [
+    "B007",
     "CPY001", # Missing copyright notice at top of file
     "D105", # Missing docstring in magic method
     "D106", # Missing docstring in public nested class
     "D212", # Multi-line docstring summary should start at the first line
     "D407", # Missing dashed underline after section ("{name}")s
+    "E712",
+    "S101",
+    "S113",
+    "S605",
 ]
 
 exclude = [

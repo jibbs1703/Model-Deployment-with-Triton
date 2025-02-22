@@ -1,15 +1,15 @@
 name: "tinyroberta"
-platform: "onnxruntime_onnx"
+platform: "pytorch_libtorch"
 max_batch_size: 1
 input [
     {
         name: "input_ids"
-        data_type: TYPE_INT64
+        data_type: TYPE_INT32
         dims: [-1]
     },
     {
         name: "attention_mask"
-        data_type: TYPE_INT64
+        data_type: TYPE_INT32
         dims: [-1]
     }
 ]

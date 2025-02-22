@@ -4,11 +4,10 @@ import os
 import numpy as np
 import pandas as pd
 import requests
-from transformers import AutoTokenizer
-
 from src.etl import flatten_data, load_data
 from src.model import trace_model
 from src.triton import generate_payload, parse_inference
+from transformers import AutoTokenizer
 
 # compile model
 trace_model(model_path="/deploy/model")
@@ -22,7 +21,7 @@ df_sample = df.sample(n=10, random_state=2024)
 tokenizer = AutoTokenizer.from_pretrained("/deploy/model", clean_up_tokenization_spaces=True)
 
 # start triton
-os.system("./triton/commands/start.sh &> server.out && sleep 10")  # noqa: S605
+os.system("./triton/commands/start.sh &> server.out && sleep 10")
 
 # Send Requests
 URL = "http://localhost:8000/v2/models/tinyroberta/infer"
@@ -36,14 +35,14 @@ tracking = {
     "pred_start_idx": [],
     "pred_end_idx": [],
 }
-for _i, row in df_sample.iterrows():
+for i, row in df_sample.iterrows():
     # preprocess
     tokenized = tokenizer(row.question, row.context, return_tensors="np")
     input_ids = np.asarray(tokenized.input_ids, dtype=np.int32)
     attention_mask = np.asarray(tokenized.attention_mask, dtype=np.int32)
     payload = generate_payload(tokenized)
     # inference
-    response = requests.post(URL, json=payload)  # noqa: S113
+    response = requests.post(URL, json=payload)
     # parse and track
     if response.status_code == 200:
         inference = json.loads(response.text)

@@ -3,7 +3,7 @@
 # Declare Default Variables
 IMAGE_NAME="triton"
 IMAGE_VERSION="24.08"
-CONTAINER_NAME="triton_demo_container"
+CONTAINER_NAME="triton_container_onnx"
 
 # Run Docker Image in Interactive Mode and Expose Ports
 docker run -i --rm \
@@ -12,10 +12,3 @@ docker run -i --rm \
   -p8001:8001 \
   -p8002:8002 \
   ${IMAGE_NAME}:${IMAGE_VERSION}
-
-# Check if the Container Started Successfully or Not
-if [ $? -ne 0 ]; then
-  echo "Docker run failed!"
-  exit 1
-fi
-echo "Docker container started successfully."

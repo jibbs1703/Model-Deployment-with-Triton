@@ -14,8 +14,8 @@ COPY triton triton
 
 # Pip Installs
 RUN python3 -m pip install -U pandas pytest transformers "huggingface_hub[cli]" \
-    && python3 -m pip install torch --index-url https://download.pytorch.org/whl/cpu \
-    && python3 -m pip install optimum[exporters] transformers[onnx] onnx onnxscript
+    && python3 -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu \
+    && python3 -m pip install onnx
 
 # Download dataset
 RUN mkdir /deploy/dataset \
